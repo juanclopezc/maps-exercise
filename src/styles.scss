@@ -73,5 +73,8 @@ $maps-exercise-theme: mat.define-light-theme((
 @import 'styles/bootstrap/grid';
 @import 'styles/bootstrap/utilities';
 
+// Global styles
+@import 'styles/global';
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

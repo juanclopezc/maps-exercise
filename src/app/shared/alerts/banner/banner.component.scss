@@ -1,0 +1,19 @@
+.banner{
+    opacity: 0;
+    max-height: 0px;
+    transition: max-height 1s, opacity 0.5s ease-out;
+
+    .banner-content{
+        background: white;    
+        font-size: 0.875rem;
+    }
+    &.open{
+        opacity: 1;
+        max-height: 6rem;
+        transition: max-height 1s, opacity 0.5s ease-out;
+    }
+}
+
+mat-icon {
+    transform: scale(0.8);
+}
