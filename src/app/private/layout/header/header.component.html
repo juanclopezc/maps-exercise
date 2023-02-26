@@ -1,1 +1,11 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+    <a mat-flat-button routerLink="/home" color="primary" class = "text-decoration-none">Maps Exercise</a>
+    <span class="example-spacer"></span>    
+    <button mat-button matAnchor [matMenuTriggerFor]="userMenu" class = "d-flex justify-content-center align-items-center w-auto">
+        <img src="../../../assets/images/user-anonymous.png" class ="rounded-circle avatar">
+        <mat-icon>arrow_drop_down</mat-icon>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+            <span mat-menu-item (click)="logOut()">Salir</span>
+        </mat-menu>
+    </button>
+</mat-toolbar>
