@@ -1,0 +1,29 @@
+.snackbar-success {
+    color: #2ABC8B;
+    transform: scale(1.2);
+}
+
+.snackbar-warning {
+    color: #FFB300;
+    transform: scale(1.2);
+}
+
+.snackbar-danger {
+    color: #dc3545;
+    transform: scale(1.2);
+}
+
+.snackbar-success .mdc-snackbar__surface {
+    background-color: #2ABC8B !important;
+    font-size: .875rem;
+}
+
+.snackbar-warning .mdc-snackbar__surface {
+    background-color: #FFB300 !important;
+    font-size: .875rem;
+}
+  
+.snackbar-danger .mdc-snackbar__surface {
+    background-color: #dc3545 !important;
+    font-size: .875rem;
+}

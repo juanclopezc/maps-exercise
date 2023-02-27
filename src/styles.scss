@@ -73,6 +73,9 @@ $maps-exercise-theme: mat.define-light-theme((
 @import 'styles/bootstrap/grid';
 @import 'styles/bootstrap/utilities';
 
+// Angular material
+@import 'styles/material/snackbar';
+
 // Global styles
 @import 'styles/global';
 

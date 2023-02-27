@@ -1,0 +1,11 @@
+<div style = "margin-top: -1.8rem;">
+    <mat-icon
+        aria-hidden="false"
+        aria-label="Alert icon"
+        [fontIcon]="data.snackbarClass === 'snackbar-danger' ? 'cancel'
+                    : data.snackbarClass === 'snackbar-success' ? 'check_circle'
+                    : data.snackbarClass === 'snackbar-warning' ? 'info' : '' "
+        [class]="data.snackbarClass">
+    </mat-icon>
+</div>
+<span class = "ms-4 text-white">{{ data.message }}</span>

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BannerModule } from './banner/banner.module';
+import { SnackbarModule } from './snackbar/snackbar.module';
+
 import { AlertsService } from './alerts.service';
 
 
@@ -9,7 +11,8 @@ import { AlertsService } from './alerts.service';
   providers: [AlertsService],
   imports: [
     CommonModule,
-    BannerModule
+    BannerModule,
+    SnackbarModule
   ],
   exports: [BannerModule]
 })
