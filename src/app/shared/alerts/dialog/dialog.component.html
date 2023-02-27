@@ -1,0 +1,8 @@
+<div class = "dialog-container">
+    <p class="title-dialog">{{data.title}}</p>
+    <div class = "pb-3 fw-light">{{ data.message }}</div>
+    <div mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close color="primary" class ="fw-bold">{{ data.dismiss_text || 'Ok' }}</button>
+        <button *ngIf="!!data.action_text" mat-raised-button mat-dialog-close color="primary" (click)="data.action()">{{ data.action_text }}</button>
+    </div>
+</div>
