@@ -1,1 +1,34 @@
-<p>home works!</p>
+<div class = "row">
+    <div class = "col-2">
+        <div class = "pt-3 ps-3">
+            <mat-form-field appearance="fill" class = "d-block">
+                <mat-label>Search</mat-label>
+                <input matInput [(ngModel)]="search">
+            </mat-form-field>
+            <div class="d-grid pb-3">
+                <button
+                    mat-raised-button
+                    type="button"
+                    color = "primary"
+                    (click)="hideControls()"><mat-icon>add_circle</mat-icon> {{ hideDrawingControls ? 'New Field' : 'Cancelar' }}</button>
+            </div>
+            <mat-divider></mat-divider>
+            <div *ngIf="polygonsCompleted">
+                <mat-card  *ngFor="let a of polygonsCompleted | searchFilter: search" class = "mb-3" (click)="selectPolygon(a)">
+                    <mat-card-content class = "d-flex align-items-center p-1 pe-auto">
+                        <mat-icon color="primary">location_on</mat-icon>
+                        <div class = "ps-1 d-flex flex-column">
+                            <small>{{ a.name }}</small>
+                        </div>
+                        <button mat-icon-button color="warn" class = "ms-auto" (click)="selectPolygon(a); deletePolygon(a.id);">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div class = "col-10">
+        <div #googleMap class = "map"></div>
+    </div>
+</div>

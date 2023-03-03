@@ -1,8 +1,11 @@
 <div class = "dialog-container">
     <p class="title-dialog">{{data.title}}</p>
     <div class = "pb-3 fw-light">{{ data.message }}</div>
+    <mat-form-field *ngIf="data.input_polygon" appearance="fill" class = "d-block">
+        <input matInput [(ngModel)]="data.polygon_name" maxlength="20">
+    </mat-form-field>
     <div mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close color="primary" class ="fw-bold">{{ data.dismiss_text || 'Ok' }}</button>
-        <button *ngIf="!!data.action_text" mat-raised-button mat-dialog-close color="primary" (click)="data.action()">{{ data.action_text }}</button>
+        <button mat-button mat-dialog-close color="primary" class ="fw-bold" (click)="data.cancel()">{{ data.dismiss_text || 'Ok' }}</button>
+        <button *ngIf="!!data.action_text" mat-raised-button mat-dialog-close color="primary" (click)="data.action((data.input_polygon)? data.polygon_name : '')">{{ data.action_text }}</button>
     </div>
 </div>

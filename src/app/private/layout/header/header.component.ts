@@ -18,7 +18,7 @@ export class HeaderComponent {
     })
   }
 
-  openDialogCancelConfirmation(cancel_method: any){
+  openDialogCancelConfirmation(action_method: any){
     this._alertsService.openDialog({
       width: '25rem',
       data:{
@@ -26,7 +26,8 @@ export class HeaderComponent {
         message: "¿Desea cerrar su sesión?",
         dismiss_text: 'Cancelar',
         action_text: 'Cerrar',
-        action: () => cancel_method()
+        action: () => action_method(),
+        cancel: () => {}
       }
     });
   }
