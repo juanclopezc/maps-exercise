@@ -31,7 +31,8 @@ export class HomeComponent implements AfterViewInit {
     const mapProperties = {
       center: new google.maps.LatLng(23, -102),
       mapTypeId: 'hybrid',
-      zoom: 5
+      zoom: 5,
+      minZoom: 5
     };
 
     this.map = new google.maps.Map(
@@ -76,11 +77,11 @@ export class HomeComponent implements AfterViewInit {
         let path = newFigure.getPath();
         google.maps.event.addListener(path, "insert_at", () => {
           this.setPolygonLabels(newFigure);          
-          // Update service
+          // To Do Update service
         });
         google.maps.event.addListener(path, "set_at", () => {
           this.setPolygonLabels(newFigure);
-          // Update service
+          // To Do Update service
         });
         this.setPolygonLabels(newFigure, newPolygoneName);
         
@@ -100,7 +101,7 @@ export class HomeComponent implements AfterViewInit {
     this.data = this._polygonService.getData();
 
     for(let a = 0; a < this.data.length; a++){
-      const variable: PolygonCompleted = new google.maps.Polygon({
+      const polygon: PolygonCompleted = new google.maps.Polygon({
         paths: this.data[a].coordinates,
         draggable: false,
         fillColor: "#5f6577",
@@ -110,23 +111,23 @@ export class HomeComponent implements AfterViewInit {
         editable: true,
         zIndex: 1        
       });
-      variable.id = this.data[a].id;
-      variable.setMap(this.map);
-      this.polygonsCompleted.push(variable);
+      polygon.id = this.data[a].id;
+      polygon.setMap(this.map);
+      this.polygonsCompleted.push(polygon);
 
-      let path = variable.getPath();
-      google.maps.event.addListener(variable, "click", () => {
-        this.selectPolygon(variable);
+      let path = polygon.getPath();
+      google.maps.event.addListener(polygon, "click", () => {
+        this.selectPolygon(polygon);
       });
       google.maps.event.addListener(path, "insert_at", () => {
-        this.setPolygonLabels(variable, this.data[a].name);
-        // Update service
+        this.setPolygonLabels(polygon, this.data[a].name);
+        // To Do Update service
       });
       google.maps.event.addListener(path, "set_at", () => {
-        this.setPolygonLabels(variable, this.data[a].name);
-        // Update service
+        this.setPolygonLabels(polygon, this.data[a].name);
+        // To Do Update service
       });
-      this.setPolygonLabels(variable, this.data[a].name);
+      this.setPolygonLabels(polygon, this.data[a].name);
     }
   }
 
@@ -149,6 +150,18 @@ export class HomeComponent implements AfterViewInit {
     }
     this.selectedPolygon = polygonCompleted;
     this.selectedPolygon.setOptions({ fillColor: "#2abc8b", strokeColor: "#2abc8b" });
+
+    this.map.setCenter(this.getPolygoneCenter(polygonCompleted));
+    this.map.setZoom(15);
+  }
+
+  getPolygoneCenter(polygonCompleted: PolygonCompleted){
+    let points = polygonCompleted.getPath().getArray();
+    let bounds = new google.maps.LatLngBounds();
+    for (let i = 0; i < points.length; i++) {
+      bounds.extend(points[i]);
+    }
+    return bounds.getCenter();
   }
 
   hideControls(){
@@ -194,21 +207,9 @@ export class HomeComponent implements AfterViewInit {
     }
     shape.labels = [];
 
-    if(name){
-      shape.name = name;
-    } else {
-      shape.name = 'Sin Nombre';
-    }
+    name ? shape.name = name : shape.name = 'Sin Nombre';
 
-    let path = shape.getPath();
-    let points = path.getArray();
-
-    let bounds = new google.maps.LatLngBounds();
-    for (let i = 0; i < points.length; i++) {
-      bounds.extend(points[i]);
-    }
-    let boundsCenter = bounds.getCenter();
-
+    const boundsCenter = this.getPolygoneCenter(shape);
     const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
     const centerLabel = new google.maps.Marker({
       position: boundsCenter,
@@ -221,10 +222,8 @@ export class HomeComponent implements AfterViewInit {
       icon: image
     });
 
-
     shape.labels.push(centerLabel);
-    centerLabel.set("position", bounds.getCenter());
-    centerLabel.set("text", 'Hola');
+    centerLabel.set("position", boundsCenter);
   }
 
   openDialogSavePolygon(action_method: any, cancel_method: any){
