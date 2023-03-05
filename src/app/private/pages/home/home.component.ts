@@ -65,13 +65,13 @@ export class HomeComponent implements AfterViewInit {
       newFigure.type = e.type;
       newFigure.id = uuidv4();
 
-      this.selectPolygon(newFigure);
+      this.selectPolygon(newFigure, false);
 
       this.openDialogSavePolygon((newPolygoneName: string) => {
         newFigure.name = newPolygoneName;
 
         google.maps.event.addListener(newFigure, "click", () => {
-          this.selectPolygon(newFigure);
+          this.selectPolygon(newFigure, false);
         });
   
         let path = newFigure.getPath();
@@ -117,7 +117,7 @@ export class HomeComponent implements AfterViewInit {
 
       let path = polygon.getPath();
       google.maps.event.addListener(polygon, "click", () => {
-        this.selectPolygon(polygon);
+        this.selectPolygon(polygon, false);
       });
       google.maps.event.addListener(path, "insert_at", () => {
         this.setPolygonLabels(polygon, this.data[a].name);
@@ -144,15 +144,19 @@ export class HomeComponent implements AfterViewInit {
     );
   }
 
-  selectPolygon(polygonCompleted: PolygonCompleted) {
+  selectPolygon(polygonCompleted: PolygonCompleted, zoom: boolean = true) {
     if(this.selectedPolygon){
+      this.selectedPolygon.selected = false;
       this.selectedPolygon.setOptions({ fillColor: "#5f6577", strokeColor: "#5f6577" });
     }
     this.selectedPolygon = polygonCompleted;
+    this.selectedPolygon.selected = true;
     this.selectedPolygon.setOptions({ fillColor: "#2abc8b", strokeColor: "#2abc8b" });
 
-    this.map.setCenter(this.getPolygoneCenter(polygonCompleted));
-    this.map.setZoom(15);
+    if(zoom){
+      this.map.setCenter(this.getPolygoneCenter(polygonCompleted));
+      this.map.setZoom(15);
+    }
   }
 
   getPolygoneCenter(polygonCompleted: PolygonCompleted){

@@ -14,17 +14,20 @@
             </div>
             <mat-divider></mat-divider>
             <div *ngIf="polygonsCompleted">
-                <mat-card  *ngFor="let a of polygonsCompleted | searchFilter: search" class = "mb-3" (click)="selectPolygon(a)">
-                    <mat-card-content class = "d-flex align-items-center p-1 pe-auto">
-                        <mat-icon color="primary">location_on</mat-icon>
-                        <div class = "ps-1 d-flex flex-column">
-                            <small>{{ a.name }}</small>
-                        </div>
-                        <button mat-icon-button color="warn" class = "ms-auto" (click)="selectPolygon(a); deletePolygon(a.id);">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </mat-card-content>
-                </mat-card>
+                <span class = "pe-auto" *ngFor="let polygon of polygonsCompleted | searchFilter: search">
+                    <mat-card  class = "mb-3" (click)="selectPolygon(polygon)" [ngClass]="{'selected-card': polygon.selected}" type="button">
+                        <mat-card-content class = "d-flex align-items-center p-1 pe-auto">
+                            <mat-icon color="primary">location_on</mat-icon>
+                            <div class = "ps-1 d-flex flex-column">
+                                <small>{{ polygon.name }}</small>
+                            </div>
+                            <button mat-icon-button color="warn" class = "ms-auto" (click)="selectPolygon(polygon, false); deletePolygon(polygon.id);">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </mat-card-content>
+                    </mat-card>
+                </span>
+
             </div>
         </div>
     </div>
